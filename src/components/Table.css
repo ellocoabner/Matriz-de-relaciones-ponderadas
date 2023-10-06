@@ -1,0 +1,52 @@
+/* TABLE CLASSES */
+header{
+    background-color: white;
+}
+#container{
+    border: 1px solid black;
+    width: 25%;
+    text-align: center;
+    color: black
+}
+.format{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto;
+}
+.area {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.espacio{
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+/*Area component classes*/
+#container h3:not(.SeS){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+/* li{
+    border-bottom: 1px solid black;
+} */
+
+.SOC{
+    background-color: green;
+}
+
+.SeS{
+    background-color: orange;
+}
+
+.SERV {
+    background-color: yellow;
+}
+
+.PRIV {
+    background-color: red;
+}
