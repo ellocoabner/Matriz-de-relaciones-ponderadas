@@ -1,27 +1,36 @@
-# React + TypeScript + Vite
+# Relaciones ponderadas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Requisitos
 
-Currently, two official plugins are available:
+Para poder ejecutar la aplicacion debe tener instalado [Node.js](https://nodejs.org/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Instalación
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+### Archivo .zip o .rar
+1. **Descomprima el archivo**
+2. **Abra la terminal en la ubicacion del archivo descomprimido**
+3. **Instale las dependencias**
 ```
+    npm install
+```
+4. **Ejecute la aplicacion**
+```
+    npm run dev
+```
+5. visite [localhost:5173](http://localhost:5173/)\
+_La consola debera mostrale que puerto usar en caso de que el 5173 este ocupado_
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Git-hub
+
+1. **Clone [Este repositorio](https://github.com/MonkiG/Matriz-de-relaciones-ponderadas)**
+2. **Abra la terminal en la ubicacion del archivo descomprimido**
+3. **Instale las dependencias**
+```
+    npm install
+```
+4. **Ejecute la aplicacion**
+```
+    npm run dev
+```
+5. visite [localhost:5173](http://localhost:5173/)\
+_La consola debera mostrale que puerto usar en caso de que el 5173 este ocupado_
