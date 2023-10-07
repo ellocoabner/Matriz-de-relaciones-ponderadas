@@ -3,14 +3,14 @@ header{
     background-color: white;
 }
 #container{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 25%;
     text-align: center;
     color: black
 }
 .format{
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows: auto;
 }
 .area {

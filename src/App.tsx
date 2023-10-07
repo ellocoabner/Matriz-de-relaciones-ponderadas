@@ -6,7 +6,7 @@ function App (): JSX.Element {
   const { Modal } = useAppContext()
   return (
     <>
-      {Modal.showModal === true && <ModalForm/>}
+      {Modal.showModal && <ModalForm/>}
       <Table/>
     </>
   )

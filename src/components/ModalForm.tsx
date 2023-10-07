@@ -1,14 +1,22 @@
 import './ModalForm.css'
 import { type AREA, areaArray } from '../helpers/consts'
-import { useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PlusSvg from './icons/PlusSvg'
 import createEspacio from '../models/espacio'
 import useAppContext from '../AppContex'
+import { type Espacio } from '../types'
 
 export default function ModalForm (): JSX.Element {
-  const keysRef = useRef(1)
-  const { Modal } = useAppContext()
-  const [items, setItems] = useState<JSX.Element[]>([<AddItem key={keysRef.current} />])
+  const indexRef = useRef(0)
+  // const allowAddRef = useRef(true)
+  const { Modal, Espacios } = useAppContext()
+  const [items, setItems] = useState<JSX.Element[]>([])
+
+  useEffect(() => {
+    setItems(Espacios.espacios.length > 0
+      ? Espacios.espacios.map(item => <AddItem disabled={true} item={item} key={item.id}/>)
+      : [<AddItem disabled={false} key={indexRef.current}/>])
+  }, [Espacios.espacios])
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
@@ -16,16 +24,11 @@ export default function ModalForm (): JSX.Element {
   }
 
   const handleAddItemButton = (): void => {
-    keysRef.current += 1
+    indexRef.current++
     setItems(prevItems => {
-      return [...prevItems, <AddItem key={keysRef.current}/>]
-    })
-  }
-
-  const handleRemoveItemButton = (key: string): void => {
-    setItems(prevItems => {
-      const restOfItems = prevItems.filter(item => item.key !== key)
-      return restOfItems
+      const item = prevItems.find(item => item.props.item === undefined)
+      if (item !== undefined) return [...prevItems]
+      else return [...prevItems, <AddItem disabled={false} key={indexRef.current}/>]
     })
   }
 
@@ -35,13 +38,9 @@ export default function ModalForm (): JSX.Element {
             <h3>Añade los espacios</h3>
             <div className='select-container'>
             {
-              items.map(item => (
-                <div className='select-item' key={item.key}>
-                  {item}
-                  <button onClick={() => { handleRemoveItemButton(item.key!) }}>❌</button>
-                </div>
-              ))
+              items.map(item => item)
             }
+
             </div>
             <button className='add-item' type='button' onClick={handleAddItemButton}><PlusSvg/></button>
             <input type='submit' value='Ver tabla'/>
@@ -50,12 +49,12 @@ export default function ModalForm (): JSX.Element {
   )
 }
 
-function AddItem (): JSX.Element {
+export function AddItem ({ item, disabled }: { item?: Espacio | undefined, disabled: boolean }): JSX.Element {
   const { Espacios } = useAppContext()
-  const [disable, setDisble] = useState(false)
+  const [disable, setDisble] = useState(disabled ?? false)
   const [data, setData] = useState({
-    option: '',
-    espacio: ''
+    option: item?.area ?? '',
+    espacio: item?.name ?? ''
   })
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -81,17 +80,23 @@ function AddItem (): JSX.Element {
   const handleClick = (): void => {
     if (data.option === '' || data.espacio === '') return
     setDisble(!disable)
-    Espacios.handleEspacios(createEspacio(data.option as AREA, data.espacio))
+    const espacio = createEspacio(data.option as AREA, data.espacio)
+    Espacios.handleAddEspacios(espacio)
+  }
+
+  const handleRemoveItemButton = (id: string): void => {
+    Espacios.handleRemoveEspacios(id)
   }
 
   return (
-    <>
+    <div>
      <select name="area-select" id="area-select" onChange={handleSelect} disabled={disable}>
-        <option>SELECT AREA</option>
+       {item !== undefined ? <option>{item.area}</option> : <option>SELECT AREA</option>}
         {areaArray.map(area => <option key={area} value={area}>{area}</option>)}
       </select>
       <input type='text' name='espacio' placeholder='SALA' value={data.espacio} onChange={handleChange} disabled={disable}/>
       {!disable && <button type='button' onClick={handleClick}>✅</button>}
-    </>
+      {(item !== undefined && item !== null) && <button onClick={() => { handleRemoveItemButton(item.id) }} type='button'>❌</button>}
+    </div>
   )
 }

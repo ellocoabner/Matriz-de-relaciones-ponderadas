@@ -4,12 +4,13 @@ import { type Espacio } from '../types'
 import useAppContext from '../AppContex'
 
 export default function Table (): JSX.Element {
-  const { Espacios } = useAppContext()
+  const { Espacios, Modal } = useAppContext()
   return (
     <div id="container">
         <header className="format">
             <h2 className="area">AREA</h2>
             <h2 className='espacio'>ESPACIOS (AMBIENTES)</h2>
+            <button onClick={Modal.handleToggleModal}>✏️</button>
         </header>
         <section>
             {areaArray.map(area => {
